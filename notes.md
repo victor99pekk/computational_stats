@@ -11,7 +11,7 @@ __Bootstraping constists of 4 step:__
 3. keep track of that calculation
 4. repeat steps 1-3...
 
-### $E(X^{* }) \text{ \& } V(X^{*})$ in bootstrap
+### $E(X^{* }) \text{ and } V(X^{*})$ in bootstrap
 In the "boostrap world" we have to estimate the expected value and the variance as the following:
 
 $$E(X^{*}) = \sum_{i}^{n} x_{i} p(x_{i}) = \sum_{i}^{n} x_{i} \cdot \frac{1}{n} = x_{mean} $$
