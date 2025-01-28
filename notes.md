@@ -1,3 +1,7 @@
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
 
 # 1. Bootstrap
 
@@ -6,6 +10,8 @@ Bootstrap methods are a class of methods that estimate the distribution of a pop
 they are often used when the distribution of the population is unkown and the sample is the only given information. 
 
 __Bootstraping constists of 4 step:__
+
+https://www.youtube.com/watch?v=Xz0x-8-cgaQ&t=400s
 1. Make a bootstraped dataset
 2. calculate something (for example the mean/mean/standard deviation)
 3. keep track of that calculation
