@@ -74,6 +74,9 @@ how do we construct a (1-$\alpha$)CL for $\theta$ ?
 
 ## 1.6 Bootstrap t-interval
 
+__Pro:__ We are not assuming normality anymore\
+__Cons:__ Bootstrap nested in Bootstrap, which can lead to heavy computation. We also have to know a pivot (t). It is not invariant to transformation.
+
 do the following B-times:
 
 1. 
@@ -101,3 +104,83 @@ $$se^{*}(\theta^{*})=\sqrt{\frac{1}{B-1} \cdot \sum_{b=1}^{B} \left( \theta^{*(b
 
 (2.4)
 $(1-\alpha)$CI: $$(\theta^{*} - t^{ *}_{1- \alpha /2} \cdot se^{ *}(\theta^{ *}), \theta^{*} - t^{ *}_{\alpha /2} \cdot se^{ *}(\theta^{ *}))$$
+
+
+## 1.7 Precentile Bootstrap CI
+
+__Pros:__ We don't need a pivot. It is invariant to transformation.
+
+__cons:__ We need B to be large (between 5k and 10k). We also need symmetry, meaning the CDF-function has to be symmetric
+
+Let $P(\theta^{*} \leq u)=H(u;\theta)$
+
+where we estimate $H$ by the bootstrap distribution $H^{*}$, that is the empirical CDF of the bootstrap replicates.
+$$\theta^{*}_{1},..., \theta^{*}_{B}$$
+
+which gives us the confidence inteval:
+$$CI: \left[H^{*-1}(\alpha/2), H^{*-1}(1-\alpha/2)\right]$$
+
+where $$H^{*}(u) = \frac{1}{B} \cdot \sum_{b=0}^{B} I(\theta^{*b} \leq u)$$
+
+```plaintext
+For 1,...b
+    Generate x_*1,...x_*n by sampling from x_1,..,x_n
+    
+    compute theta_b
+
+find quantiles
+
+generate confidence interval
+```
+
+## 1.8 Hall's percentile Bootstrap CI
+__Pros:__ Here we dont need symmetry
+
+Choose $t_{1},t_{2}$ such that $P(\theta + t_{2} < \theta < \theta + t_{1}) = 1 - \alpha$
+
+$$\implies \theta + t_{1} = \theta_{1-\alpha/2} \quad \theta - t_{2} = \theta_{\alpha/2}$$
+
+$$CI: \left[ 2\theta^{*} - \theta_{1-\alpha/2}, 2\theta^{*} - \theta_{\alpha/2} \right]$$
+
+
+# Permuatation...
+
+## Exact CI
+used when we want to compute the p for a binomial using confidence level $1-\alpha$
+It does not rely on large sample distributions, but is based on the exact binomial distribution, making it accurate for even small samples.
+
+the confidence level is always guaranteed to be at least $(1-\alpha)$. it is conservative.
+
+$p_{l}, p_{u}$ are found by computing:
+$$\sum_{k=0}^{x} p^{k}_{u}(1-p_{u}^{k})^{n-k} = \frac{\alpha}{2} \rightarrow \quad P(B(n;p_{l}) \leq x )= \frac{\alpha}{2}$$
+$$\sum_{k=0}^{x} p^{k}_{l}(1-p_{l}^{k})^{n-k} = \frac{\alpha}{2}  \rightarrow \quad P(B(n;p_{u}) \geq x )= \frac{\alpha}{2}$$$$
+where: \
+x - number of successes\
+n - number of trials\
+$p_{u/l}$ - lower and upper bound\
+$\alpha$ - significance level
+
+This methods finds $p_{l},p_{u}$ such that the probability of observing x successes or less is $\alpha / 2$ for $p_{u}$.
+and the probability of observing x successes or more is $\alpha / 2$ for $p_{l}$
+
+__hypothesis test__ ($H_{0}, p=p_{u}$) \
+since $P(B(n;p_{l}) \leq x )= \frac{\alpha}{2} \implies p_{value} \geq \alpha / 2$, so we dont reject the null hypothesis. If we were to pick a p that is bigger the probability would be smaller than $\alpha / 2$. And we would then reject it. This means $p_{u}$ is the last p-value for which we dont reject.
+
+
+## RR or OR
+
+Let 0 be the control group and 1 the treated group. We can then measure treatment in the following way:
+
+__Risk difference:__ $\quad \Delta = p_{1} - p_{0}$
+
+__Risk ratio (RR):__ $\quad RR = p_{1} / p_{0}, \quad 0 \leq RR \leq \infty$
+
+
+__Odds ratio (OR):__ $\quad OR = \frac{p_{1} (1-p_{0})}{p_{0} (1-p_{1})}, \quad 0 \leq OR \leq \infty$
+
+- $p_{0} = p_{1} \implies \Delta = 0\quad iff:$ X and Y are independent iff
+$$RR=1 \quad or  \quad OR =1$$
+
+- $RR > 1 \quad or \quad OR > 1$ implies that exposure increases the risk of diseas of event of interest.
+
+- $RR \approx OR$ implies that the disease/outcome is rare
