@@ -184,3 +184,36 @@ $$RR=1 \quad or  \quad OR =1$$
 - $RR > 1 \quad or \quad OR > 1$ implies that exposure increases the risk of diseas of event of interest.
 
 - $RR \approx OR$ implies that the disease/outcome is rare
+
+
+## Permutation test
+A permutation test involves two or more samples. The `null hypothesis` is that they come from the same distributiion.
+
+__Pros:__ no assumption of normality is needed. Works well in small sample sizes.
+
+### Method
+shuffle the data in all possible ways and calculate the test-statistic. It is based on the principle of `proof by contradiction`, meaning it tests wether the observed data would be likely or unlikely assuming that there is no real difference in the group.
+
+__(1) Test statistic:__
+Compute an observed test statistic $T_{observed}$ such as the difference in mean for example:
+$$T = X_{mean} - Y_{mean}$$
+
+__(2) creating samples:__
+Say we have two samples:
+$$X_{1},...,X_{n} ∼ i.i.d \quad F_{X}$$
+$$Y_{1},...,Y_{m} ∼ i.i.d \quad F_{Y}$$
+
+the null hypothesis is: $X ∼ Y$ they are from the same distribution.
+
+We create a pooled sample $Z$ where all values are interchangeable under $H_{0}$ since they then come from the same ditrbibution:
+$$Z = \{X_{1},..,X_{n}, Y_{1},...,Y_{m} \} \quad N=m+n$$
+
+__(3) permutation process & computing `p-value`:__
+- a `permutation` is a random shuffling of indices $\{1,...,N\}$.
+from the shuffled data the first n-values are assigned as $X^{\pi}$ and the remaining m-values as $Y^{\pi}$
+This simulates the null hypothesis by ensuring that any grouping is equally likely.
+
+- the `p-value` is the proportion of permutations where the $T_{\pi}$ is at least as extreme as extreme as $T_{observed}$.
+
+$$\text{p-value} = \frac{\# \{\pi : T_{\pi} \geq T_{oberved}\}}{N!}$$
+
