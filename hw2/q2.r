@@ -41,11 +41,11 @@ estimate_power <- function(n = 10, m = 10,
 }
 
 # Part (a): Type I error estimation for n = m = 10
-type1_error_10 <- estimate_type1_error(n = 10, m = 10, b = 1000, sims = 10000)
+type1_error_10 <- estimate_type1_error(n = 10, m = 10, b = 1000, sims = 1000)
 cat("Estimated Type I error (n = m = 10):", type1_error_10, "\n")
 
 # Part (b): Type I error estimation for n = m = 50
-type1_error_50 <- estimate_type1_error(n = 50, m = 50, b = 1000, sims = 10000)
+type1_error_50 <- estimate_type1_error(n = 50, m = 50, b = 1000, sims = 1000)
 cat("Estimated Type I error (n = m = 50):", type1_error_50, "\n")
 
 # Part (c): Power estimation for n = m = 10
